@@ -12,7 +12,7 @@ public class GameEngine
     private readonly MenuManager _menuManager;
     private readonly OutputManager _outputManager;
 
-    private IPlayer _player;
+    private Player _player;
     private IMonster _goblin;
 
     public GameEngine(GameContext context, MenuManager menuManager, OutputManager outputManager)
@@ -38,7 +38,8 @@ public class GameEngine
         {
             _outputManager.WriteLine("Choose an action:", ConsoleColor.Cyan);
             _outputManager.WriteLine("1. Attack");
-            _outputManager.WriteLine("2. Quit");
+            _outputManager.WriteLine("2. Inventory Management");
+            _outputManager.WriteLine("3. Quit");
 
             _outputManager.Display();
 
@@ -50,6 +51,35 @@ public class GameEngine
                     AttackCharacter();
                     break;
                 case "2":
+                    _outputManager.WriteLine("\nInventory Management:");
+                    _outputManager.WriteLine("1. Search for item by name");
+                    _outputManager.WriteLine("2. List items by type");
+                    _outputManager.WriteLine("3. Sort items");
+                    _outputManager.Display();
+                    var input2 = Console.ReadLine();
+
+                    switch(input2){
+                        case "1":
+                            _outputManager.WriteLine("Item Name: ");
+                            _outputManager.Display();
+                            var item = Console.ReadLine();
+                            _player.FindItem(item!);
+                            break;
+                        case "2":
+                            _outputManager.WriteLine("Type of items: ");
+                            _outputManager.Display();
+                            var item2 = Console.ReadLine();
+                            _player.ListByType(item2!);
+                            break;
+                        case "3":
+                            _player.Sort(_menuManager.Submenu());
+                            break;
+                        default:
+                            _outputManager.WriteLine("Invalid selection.", ConsoleColor.Red);
+                            break;
+                    }
+                    break;
+                case "3":
                     _outputManager.WriteLine("Exiting game...", ConsoleColor.Red);
                     _outputManager.Display();
                     Environment.Exit(0);

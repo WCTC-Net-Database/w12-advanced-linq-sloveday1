@@ -42,4 +42,16 @@ public class MenuManager
             }
         }
     }
+
+    public string Submenu(){
+        _outputManager.WriteLine("\nSort Options:");
+        _outputManager.WriteLine("1. Sort by Name");
+        _outputManager.WriteLine("2. Sort by Attack Value");
+        _outputManager.WriteLine("3. Sort by Defense Value");
+        _outputManager.Display();
+
+        var choice = Console.ReadLine();
+
+        return choice!;
+    }
 }
